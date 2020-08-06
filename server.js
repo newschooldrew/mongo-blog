@@ -49,7 +49,7 @@ app.post('/create-user',async(req,res)=>{
             .then(order =>{
                 console.log("order:")
                 console.log(order)
-                return order.sendSmsNotification("You've created a user", ()=>console.log("something went wrong"))
+                return order.sendSmsNotification("hi babe! love you!", ()=>console.log("something went wrong"))
             })
         })
     })
@@ -114,11 +114,17 @@ app.post('/fetch-posts',async (req,res)=>{
     } catch(e){
         console.log("no found user")
     }
+    try{
     const posts = await Post.find({author:foundUser._id})
-    console.log('***************')
+        console.log('***************')
     console.log(posts)
     console.log('***************')
     res.send(posts)
+    } catch(e){
+        console.log("couldnt find any posts")
+        res.send(posts)
+    }
+
     // res.set({"misc":`${foundUser}`}).send("done")
 })
 
